@@ -11,3 +11,5 @@ def get_connection():
     client = pymongo.MongoClient(db_uri)
     db = client["discord_server"]
     return db
+
+mongo_atlas_db = get_connection()

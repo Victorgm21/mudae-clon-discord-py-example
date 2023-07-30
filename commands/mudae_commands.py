@@ -1,6 +1,6 @@
 from discord.ext import commands
 # import ../database/db.py
-from database import db
+from database.db import mongo_atlas_db
 # import db controller
 from database import db_controller
 # import Time module
@@ -18,7 +18,7 @@ help = {
 class Mudae(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.database = db.get_connection()
+        self.database = mongo_atlas_db
 
     @commands.command(help=help["register"])
     async def register(self, ctx):
@@ -59,7 +59,7 @@ class Mudae(commands.Cog):
                 difference_min = check_time.getDifference(
                     user_doc["last_spin"], actual_time)
                 # If the difference > 30 minutes, then give a free spin.
-                if (difference_min > 2):
+                if (difference_min > 5):
                     resultado = db_controller.updateUser(
                         str(actual_time), str(ctx.author.id))
                     return await ctx.message.reply("Congratulations, you got this character: not finished yet")
